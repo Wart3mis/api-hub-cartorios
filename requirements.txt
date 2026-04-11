@@ -1,0 +1,12 @@
+# API
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+
+# Banco de dados
+sqlalchemy==2.0.35
+psycopg2-binary==2.9.9
+
+# Validação e configuração
+pydantic==2.9.2
+pydantic-settings==2.5.2
+python-dotenv==1.0.1

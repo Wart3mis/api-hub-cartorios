@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: cartorio_hub_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-cartorio_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cartorio_pass}
+      POSTGRES_DB: ${POSTGRES_DB:-cartorio_hub}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+
+# Como rodar:
+#   docker compose up -d
+# Para parar:
+#   docker compose down
