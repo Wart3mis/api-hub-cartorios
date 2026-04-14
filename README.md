@@ -11,12 +11,12 @@ volumetria de atos cartoriais.
 Este repositório contém o código-fonte do protótipo desenvolvido como Trabalho de 
 Conclusão de Curso (TCC) para o MBA em Engenharia de Software da USP/Esalq.
 
-O projeto consiste em uma **API Centralizadora (Hub)** desenvolvida para sanar a 
-deficiência de rastreabilidade em integrações de sistemas cartoriais com plataformas 
-governamentais (e-Notariado, CRC, SIRC e ONR). O microsserviço atua como um gateway 
-de relatórios, recebendo cargas de dados, validando suas estruturas, centralizando 
-logs de auditoria e expondo métricas gerenciais em tempo real por meio de um painel 
-visual interativo.
+O projeto consiste em uma **API Centralizadora (Hub)** desenvolvida para sanar a
+deficiência de rastreabilidade em integrações de sistemas cartoriais com plataformas
+governamentais (e-Notariado, CRC, SIRC e ONR). O cartório realiza o envio diretamente
+aos órgãos com suas próprias credenciais institucionais e, após receber o retorno,
+notifica o Hub com o resultado. O microsserviço centraliza os logs de auditoria,
+expõe métricas gerenciais em tempo real e disponibiliza um painel visual interativo.
 
 ---
 
@@ -84,7 +84,7 @@ A API estará disponível em `http://localhost:8000`.
 
 | Método | Rota | Descrição |
 |---|---|---|
-| POST | `/api/v1/relatorios` | Registrar ato cartorial |
+| POST | `/api/v1/relatorios` | Registrar resultado de ato cartorial |
 | GET | `/api/v1/relatorios` | Listar logs com filtros |
 | GET | `/api/v1/relatorios/{id}` | Detalhe de um log |
 | GET | `/api/v1/dashboard/resumo` | Métricas gerenciais |
@@ -104,9 +104,9 @@ de erros recentes de integração.
 ## Simulador de Dados
 
 O script `simulador.py` foi utilizado na etapa de coleta de dados da pesquisa. 
-Ele injeta 20 requisições em lote, alternando entre 7 cartórios e 7 tipos de 
-ato, simulando envios bem-sucedidos e cenários de falha para homologação do 
-banco de logs.
+Ele injeta 100 requisições em lote, alternando entre 7 cartórios e 7 tipos de 
+ato, simulando notificações de resultado com distribuição aproximada de 70% de sucesso
+e 30% de erro, refletindo uma taxa operacional realista.
 
 ```bash
 python simulador.py
