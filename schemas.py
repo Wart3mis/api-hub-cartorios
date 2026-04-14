@@ -19,12 +19,9 @@ class StatusEnum(str, Enum):
     SUCESSO  = "SUCESSO"
     ERRO     = "ERRO"
     PENDENTE = "PENDENTE"
-
-
 # ---------------------------------------------------------------------------
-# Request
+# Request — enviado pelo sistema do cartório após comunicação com o órgão
 # ---------------------------------------------------------------------------
-
 class ReportCreate(BaseModel):
     cartorio_id: str = Field(
         ...,
@@ -36,25 +33,31 @@ class ReportCreate(BaseModel):
     tipo_ato: TipoAtoEnum = Field(
         ...,
         examples=["NASCIMENTO"],
-        description="Tipo do ato cartorial a ser registrado.",
+        description="Tipo do ato cartorial registrado.",
+    )
+    status: StatusEnum = Field(
+        ...,
+        examples=["SUCESSO"],
+        description="Resultado do envio ao órgão governamental, informado pelo cartório.",
     )
     payload: dict[str, Any] = Field(
         ...,
-        description="Dados brutos do ato em formato JSON.",
+        description="Dados do ato em formato JSON.",
     )
-
-
+    mensagem_erro: str | None = Field(
+        default=None,
+        description="Mensagem de erro retornada pelo órgão. Obrigatória quando status=ERRO.",
+    )
 # ---------------------------------------------------------------------------
 # Response
 # ---------------------------------------------------------------------------
-
 class ReportResponse(BaseModel):
-    model_config = ConfigDict(from_attributes=True)  # compatível com ORM objects
+    model_config = ConfigDict(from_attributes=True)
 
-    id: int
-    cartorio_id: str
-    tipo_ato: TipoAtoEnum
-    status: StatusEnum
+    id:             int
+    cartorio_id:    str
+    tipo_ato:       TipoAtoEnum
+    status:         StatusEnum
     payload_enviado: dict[str, Any]
-    mensagem_erro: str | None = None
-    data_hora: datetime
+    mensagem_erro:  str | None = None
+    data_hora:      datetime
