@@ -113,7 +113,7 @@ def montar_notificacao(tipo_ato: str, cartorio_id: str) -> dict:
 # Loop principal
 # ---------------------------------------------------------------------------
 
-TOTAL = 20
+TOTAL = 100
 
 def main():
     print("=" * 62)
